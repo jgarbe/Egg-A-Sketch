@@ -17,6 +17,7 @@ def index():
         <html>
             <body>
                 <p>Choose the mode you want to run:</p><p>&nbsp</p>
+<!--
                 <form method =  "get" action="{}">
                     <p><input type="submit" value="Simple Harmonograph" /> This will create simple harmonograph figures based on two periodic oscillators</p>
                     <p>&nbsp </p>
@@ -26,6 +27,7 @@ def index():
                                                                             and will also allow the 'drawing surface' to rotate.</p>
                     <p>&nbsp</p>
                 </form>
+-->
 <!--
                 <form method =  "get" action= "{}">
                     <p><input type="submit" value="Random Harmonographs" /> This will draw random harmonograph designs, simple and complex, from a list of preset designs</p>
