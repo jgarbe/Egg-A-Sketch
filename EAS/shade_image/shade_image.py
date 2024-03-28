@@ -18,10 +18,10 @@ import select
 import os
 
 returnToMain = False
-pixelSizeX = 10  #10
-pixelSizeY = 10  #10
-maxY = 200.0 #270.0 #<=600  This is the vertical size of the rescaled image in pixels
-maxX = 600.0 #387.0  #<=1000  This is the horizontal size of the rescaled image in pixels
+pixelSizeX = 2  #10
+pixelSizeY = 2  #10
+maxY = 600.0 #270.0 #<=600  This is the vertical size of the rescaled image in pixels
+maxX = 2048.0 #387.0  #<=1000  This is the horizontal size of the rescaled image in pixels
 
 UP = True
 DOWN = False
@@ -132,6 +132,7 @@ def resize(image, maxHeight, maxWidth):
     newWidth = int(factor*width)
     newImage = image.resize((newWidth, newHeight))
     print("New image size:", newImage.size)  #Prints width, height, unlike numpy and openCV
+    newImage.save('temp_image.png')
     return newImage
 
 
@@ -675,7 +676,7 @@ def connect_closest_black_pixel(image, yDest, xDest, s):
             return(-1, -1)
 
         #Find the closest already shaded point to a given destination point
-        if count%10 == 0:  #Just check every 10th pixel to save time
+        if count%1000 == 0:  #Just check every 10th pixel to save time
             closeY, closeX = find_unfinished_region(image, currY, currX, 100, s)  #100 is value of image cells that are already shaded
 
             distance = np_sqrt((closeX-currX)**2 + (closeY-currY)**2)
@@ -807,7 +808,7 @@ def draw_shaded_image(hMotor, vMotor, yStart, xStart, im_bw, s):
                 done = True
                 break
             else: #Follow path to top left pixel
-                print("Created path of length", len(path), "from", yStart, xStart, "->", yDest, xDest)
+                print("Created path to top left pixel of length", len(path), "from", yStart, xStart, "->", yDest, xDest)
                 follow_path(hMotor, vMotor, path, im_bw, s)
                 (yStart, xStart) = path[0]
 
@@ -838,6 +839,9 @@ def draw_shaded_image(hMotor, vMotor, yStart, xStart, im_bw, s):
         else:  #Create and follow a path to an unconnected, unshaded region
             (yDest, xDest) = find_unfinished_region(im_bw, yStart, xStart, 0, s)  #Zero is value of black cells not yet shaded
             print("Point in unconeccted, unfinished region is", yDest, ",", xDest)
+            os.system('sudo /home/pi/EAS/servo_up')
+            # path = create_path_to_point(im_bw, yStart, xStart, yDest2, xDest2, s)
+            # print("Path of length", len(path), "created to an unconnected region")
 #        print(im_bw[(yDest-5):(yDest+5), (xDest-5):(xDest+5)])
             if yDest == -1 or returnToMain:  #Could not find either a connected or unconnected, unfinished region
                 print("Returning 3")

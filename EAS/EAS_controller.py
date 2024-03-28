@@ -24,8 +24,8 @@ import ast
 
 minMotorStepInc = 2500.0
 returnToMain = False  #Variable used to terminate subroutine on ctrl-c
-hBacklash = 375   #Backlash correction in steps - horizontal
-vBacklash = 365   #Backlash correction in steps - vertical
+hBacklash = 5   #Backlash correction in steps - horizontal
+vBacklash = 5   #Backlash correction in steps - vertical
 
 #eraseSpeed = 0.75
 #numShakes = 1  #Number of times to shake after inverting for an erase
@@ -35,7 +35,7 @@ vBacklash = 365   #Backlash correction in steps - vertical
 def clean_up():
     #This function cleans up the steppers and exits
     print("Cleaning up and exiting.")
-    os.system('sudo ./servo_up')
+    os.system('sudo /home/pi/EAS/servo_up')
     print("Pulling Servo Up. EAS Line 39 Stopping")
     hMotor.turn_off()
     vMotor.turn_off()
