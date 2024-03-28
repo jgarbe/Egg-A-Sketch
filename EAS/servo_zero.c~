@@ -15,12 +15,17 @@ int main(){
 	pinMode(PWM_pin,OUTPUT);	/* set GPIO as output */
 	softPwmCreate(PWM_pin,0,200);	/* set PWM channel along with range*/
 
+		for (intensity = range; intensity >= 0; intensity--)
+		{
+		  softPwmWrite (PWM_pin, intensity);
+		  delay (speed_adj);
+		}
 		for (intensity = 0; intensity < range; intensity++)
 		{
 		  softPwmWrite (PWM_pin, intensity); /* change the value of PWM */
 		  delay (speed_adj) ;
 		}
+	
 
-	delay(2000);
 }
-
+close();
